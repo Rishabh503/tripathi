@@ -14,16 +14,72 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String?
-  email     String?  @unique
-  phone     String?  @unique
-  role      Role     @default(USER)
-  createdAt DateTime @default(now())
+  id             String          @id @default(uuid())
+  clerkId        String          @unique
+  name           String?
+  email          String?
+  phone          String?
+  role           String          @default("user") // or "admin"
+  status         String          @default("pending")
+  shares         Share[]
+  shareRequests  ShareRequest[]
+  loans          Loan[]
+  payments       Payment[]
+  createdAt      DateTime        @default(now())
 }
 
-enum Role {
-  USER
-  ADMIN
+model ShareRequest {
+  id              String      @id @default(uuid())
+  user            User        @relation(fields: [userId], references: [id])
+  userId          String
+  numberOfShares  Int
+  amountPerShare  Float
+  totalAmount     Float
+  status          String      @default("pending") // pending, approved, rejected
+  requestDate     DateTime    @default(now())
+}
+
+model Share {
+  id             String      @id @default(uuid())
+  user           User        @relation(fields: [userId], references: [id])
+  userId         String
+  shareNumber    Int
+  amount         Float
+  purchaseDate   DateTime    @default(now())
+
+  // Opposite relation fields
+  loans          Loan[]
+  payments       Payment[]
+}
+
+model Loan {
+  id             String      @id @default(uuid())
+  user           User        @relation(fields: [userId], references: [id])
+  userId         String
+  share          Share?      @relation(fields: [shareId], references: [id])
+  shareId        String?
+  principal      Float
+  remaining      Float
+  interestRate   Float       @default(1.0)
+  loanDate       DateTime    @default(now())
+  status         String      @default("active")
+  payments       Payment[]
+}
+
+model Payment {
+  id            String      @id @default(uuid())
+  user          User        @relation(fields: [userId], references: [id])
+  userId        String
+  share         Share?      @relation(fields: [shareId], references: [id])
+  shareId       String?
+  loan          Loan?       @relation(fields: [loanId], references: [id])
+  loanId        String?
+  month         Int
+  year          Int
+  baseAmount    Float
+  loanInterest  Float
+  loanRepay     Float
+  totalPaid     Float
+  date          DateTime    @default(now())
 }
 
