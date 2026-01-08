@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import {ClerkProvider} from "@clerk/nextjs"
 import Navbar from "./components/Navbar";
+import { UserProvider } from "./context/UserContext";
+import MobileNavbar from "./components/MobileNavbar";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -25,15 +27,18 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
+<UserProvider>
 
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <Navbar/>
+          <MobileNavbar/>
         {children}
       </body>
     </html>
+          </UserProvider>
         </ClerkProvider>
   );
 }

@@ -1,3 +1,7 @@
+// import Trial from "./components/Trial";
+
+import Trial from "./components/Trial";
+
 export default function HomePage() {
   return (
     <main className="max-w-7xl mx-auto px-6 py-20">
@@ -27,6 +31,7 @@ export default function HomePage() {
             Login
           </a>
         </div>
+        <Trial/>
       </div>
     </main>
   );

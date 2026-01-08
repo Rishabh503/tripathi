@@ -26,26 +26,33 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!isLoaded || !isSignedIn || !user) {
-      setLoading(false);
+    if (!isLoaded) return;
+
+    if (!isSignedIn || !user) {
       setDbUser(null);
+      setLoading(false);
       return;
     }
 
     const syncUser = async () => {
-      const res = await fetch("/api/usercreation", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          clerkId: user.id,
-          email: user.primaryEmailAddress?.emailAddress,
-          name: user.fullName,
-        }),
-      });
+      try {
+        const res = await fetch("/api/usercreation", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            clerkId: user.id,
+            email: user.primaryEmailAddress?.emailAddress,
+            name: user.fullName,
+          }),
+        });
 
-      const data = await res.json();
-      setDbUser(data.user);
-      setLoading(false);
+        const data = await res.json();
+        setDbUser(data.user);
+      } catch (err) {
+        setDbUser(null);
+      } finally {
+        setLoading(false);
+      }
     };
 
     syncUser();

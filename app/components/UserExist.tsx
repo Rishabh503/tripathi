@@ -30,6 +30,7 @@ export default function UserDetails() {
     };
 
     checkUser();
+    
   }, [isLoaded, isSignedIn, user]);
 
   // ✅ Returns come AFTER hooks
