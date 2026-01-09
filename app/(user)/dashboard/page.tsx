@@ -42,7 +42,7 @@ export default function UserDetailsPage() {
       </Section>
 
       {/* Shares */}
-      <Section title="Shares">
+      {/* <Section title="Shares">
         {shares.length === 0 ? (
           <Empty text="No shares owned" />
         ) : (
@@ -55,10 +55,10 @@ export default function UserDetailsPage() {
             ])}
           />
         )}
-      </Section>
+      </Section> */}
 
       {/* Loans */}
-      <Section title="Loans">
+      {/* <Section title="Loans">
         {loans.length === 0 ? (
           <Empty text="No loans found" />
         ) : (
@@ -72,10 +72,10 @@ export default function UserDetailsPage() {
             ])}
           />
         )}
-      </Section>
+      </Section> */}
 
       {/* Payments */}
-      <Section title="Recent Payments">
+      {/* <Section title="Recent Payments">
         {payments.length === 0 ? (
           <Empty text="No payments recorded" />
         ) : (
@@ -88,12 +88,12 @@ export default function UserDetailsPage() {
             ])}
           />
         )}
-      </Section>
+      </Section> */}
     </div>
   );
 }
 
-function Section({ title, children }: any) {
+export function Section({ title, children }: any) {
   return (
     <div className="bg-white rounded-xl shadow p-6">
       <h2 className="text-lg font-semibold text-gray-900 mb-4">
@@ -104,7 +104,7 @@ function Section({ title, children }: any) {
   );
 }
 
-function Info({ label, value }: any) {
+export function Info({ label, value }: any) {
   return (
     <div className="flex justify-between text-sm">
       <span className="text-gray-500">{label}</span>
@@ -113,7 +113,7 @@ function Info({ label, value }: any) {
   );
 }
 
-function Table({ headers, rows }: any) {
+export function Table({ headers, rows }: any) {
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-sm border">
@@ -142,7 +142,7 @@ function Table({ headers, rows }: any) {
   );
 }
 
-function Empty({ text }: any) {
+export function Empty({ text }: any) {
   return (
     <p className="text-sm text-gray-500">{text}</p>
   );

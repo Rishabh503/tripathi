@@ -1,9 +1,13 @@
-// import Trial from "./components/Trial";
+// import U from "./components/Trial";
 
-import Trial from "./components/Trial";
+
+import UserToDashboard from "./components/UserToDashboard";
+import { useDbUser } from "./context/UserContext";
 
 export default function HomePage() {
+  
   return (
+   <>
     <main className="max-w-7xl mx-auto px-6 py-20">
       <div className="text-center max-w-2xl mx-auto">
         <h2 className="text-4xl font-bold mb-6">
@@ -31,8 +35,9 @@ export default function HomePage() {
             Login
           </a>
         </div>
-        <Trial/>
+        <UserToDashboard/>
       </div>
     </main>
+   </>
   );
 }
